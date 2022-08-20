@@ -1,0 +1,21 @@
+version: "3.5"
+services:
+  db:
+    image: mariadb
+    environment:
+      MYSQL_USER: "db_user"
+      MYSQL_PASSWORD: "sayyogames@1234"
+      MYSQL_ROOT_PASSWORD: "sayyogames@1688"
+      MYSQL_DATABASE: "sampledb"
+    command:
+      [
+        "mysqld",
+        "--character-set-server=utf8mb4",
+        "--collation-server=utf8mb4_unicode_ci",
+      ]
+    ports:
+      - "3307:3306"
+  redis:
+    image: redis:4.0.1
+    ports:
+      - "6379:6379"
