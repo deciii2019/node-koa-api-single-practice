@@ -5,13 +5,17 @@ router
   .get('/lookUp',require('./list')) //回傳清單
 
 router
-  .post('/insert',require('./insert'),require('./list')) //新增 並回傳清單
+  .post('/insert',require('./insert')) //新增
+
+//,require('./list')
 
 router
-  .post('/delete',require('./delete'),require('./list')) //刪除 並回傳清單 並回傳清單
-
+  .post('/delete',require('./delete')) //刪除
+//,require('./list')
 router
-  .post('/update',require('./update'),require('./list')) //更新 並回傳清單
+  .post('/update',require('./update')) //更新
+
+//,require('./list')
 
 router
   .get('/query',require('./query')) //查詢

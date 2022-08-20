@@ -1,14 +1,23 @@
+var db;
+var response;
 module.exports = async (ctx, next) => 
 {
 try
 {
     const data = ctx.request.body
-    await ctx.server.rds('member').insert(data).then(()=> console.log('data inserted'));
-    ctx.body = {};
-    await next();
+    let memberData; 
+    db = ctx.server.rds('member');
+    await ctx.server.rds('member').insert(data).then(()=> ShowData(ctx,data['memid']));
+    await next(ctx.body = {response});
 }
 catch(error)
 {
     ctx.body = {"error":error.message};
 }
 };
+
+
+async function ShowData(ctx,target)
+{
+    response =  await db.where('memid',target);
+}

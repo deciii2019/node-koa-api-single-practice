@@ -1,5 +1,6 @@
 var mainRedis;
 var memberList;
+
 module.exports = async (ctx, next) => {
 
     let queryString = ctx.request.url.split('?')
@@ -23,22 +24,20 @@ module.exports = async (ctx, next) => {
         }
 
         
-    });
-    ctx.body = {
-        memberList
-    };
-    await next();
+    }).then();
+    await next(ctx.body = {memberList});
 };
 
 async function goMySQL(table,pk,v)
 {
-    res = await table.where(pk,v);
+    memberList = await table.where(pk,v);
     SaveRedis(pk);
-    return res;
+    return memberList;
     
 }
 
 async function SaveRedis(pk)
 {
-    await mainRedis.set(pk, JSON.stringify(res),'EX',60, err =>{if(err){console.log(err)}})
+    await mainRedis.set(pk, JSON.stringify(memberList),'EX',60, err =>{if(err){console.log(err)}})
 } 
+
