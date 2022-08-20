@@ -10,8 +10,7 @@ module.exports = async (ctx, next) => {
     const v = qS[1];
     var res;
     mainRedis = ctx.server.redisSet.getAllClient()[0];
-
-    await mainRedis.get(pk,(err,rawdata)=>{
+    await mainRedis.get(v,(err,rawdata)=>{
         if(err){console.log(err)}
         if(!!rawdata)
         {
@@ -31,13 +30,13 @@ module.exports = async (ctx, next) => {
 async function goMySQL(table,pk,v)
 {
     memberList = await table.where(pk,v);
-    SaveRedis(pk);
+    SaveAllInRedis(memberList,v);
     return memberList;
     
 }
 
-async function SaveRedis(pk)
+async function SaveAllInRedis(memberList,v)
 {
-    await mainRedis.set(pk, JSON.stringify(memberList),'EX',60, err =>{if(err){console.log(err)}})
-} 
+    await mainRedis.set(v, JSON.stringify(memberList),'EX',60, err =>{if(err){console.log(err)}})
+}
 
