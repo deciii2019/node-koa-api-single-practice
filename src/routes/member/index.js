@@ -7,15 +7,11 @@ router
 router
   .post('/insert',require('./insert')) //新增
 
-//,require('./list')
-
 router
   .post('/delete',require('./delete')) //刪除
-//,require('./list')
+
 router
   .post('/update',require('./update')) //更新
-
-//,require('./list')
 
 router
   .get('/query',require('./query')) //查詢
